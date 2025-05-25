@@ -10,7 +10,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('kriteria', KriteriaController::class);
+Route::resource('kriteria', KriteriaController::class)->parameters([
+    'kriteria' => 'kriteria'
+]);
 
 Route::resource('siswa', SiswaController::class);
 

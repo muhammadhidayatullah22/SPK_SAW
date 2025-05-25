@@ -14,9 +14,8 @@ class HasilController extends Controller
         $siswas = Siswa::with('penilaians')->get();
         $kriterias = Kriteria::all();
 
+        // 1. Matriks nilai mentah
         $nilai_matrix = [];
-
-        // Siapkan nilai mentah
         foreach ($siswas as $siswa) {
             foreach ($kriterias as $kriteria) {
                 $nilai = Penilaian::where('siswa_id', $siswa->id)
@@ -26,11 +25,14 @@ class HasilController extends Controller
             }
         }
 
-        // Hitung nilai max/min tiap kriteria
+        // 2. Normalisasi
         $normal = [];
         foreach ($kriterias as $kriteria) {
-            $values = array_column(array_column($nilai_matrix, $kriteria->id), 0);
-
+            // Ambil semua nilai pada kriteria ini
+            $values = [];
+            foreach ($siswas as $siswa) {
+                $values[] = $nilai_matrix[$siswa->id][$kriteria->id];
+            }
             $max = max($values);
             $min = min($values);
 
@@ -44,7 +46,7 @@ class HasilController extends Controller
             }
         }
 
-        // Hitung skor akhir
+        // 3. Hitung skor akhir
         $ranking = [];
         foreach ($siswas as $siswa) {
             $skor = 0;
@@ -57,7 +59,7 @@ class HasilController extends Controller
             ];
         }
 
-        // Urutkan skor tertinggi ke rendah
+        // 4. Urutkan skor tertinggi ke rendah
         usort($ranking, fn($a, $b) => $b['skor'] <=> $a['skor']);
 
         return view('hasil.index', compact('ranking'));
