@@ -9,9 +9,21 @@ use Illuminate\Http\Request;
 
 class HasilController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $siswas = Siswa::with('penilaians')->get();
+        // Ambil daftar kelas unik untuk dropdown
+        $daftar_kelas = Siswa::select('kelas')->distinct()->pluck('kelas');
+
+        // Ambil filter kelas dari request
+        $filter_kelas = $request->input('kelas');
+
+        // Filter siswa jika kelas dipilih
+        $siswas = Siswa::with('penilaians');
+        if ($filter_kelas) {
+            $siswas = $siswas->where('kelas', $filter_kelas);
+        }
+        $siswas = $siswas->get();
+
         $kriterias = Kriteria::all();
 
         // 1. Matriks nilai mentah
@@ -62,6 +74,7 @@ class HasilController extends Controller
         // 4. Urutkan skor tertinggi ke rendah
         usort($ranking, fn($a, $b) => $b['skor'] <=> $a['skor']);
 
-        return view('hasil.index', compact('ranking'));
+        // Kirim daftar_kelas ke view untuk dropdown
+        return view('hasil.index', compact('ranking', 'daftar_kelas'));
     }
 }

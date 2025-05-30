@@ -9,19 +9,19 @@
             <table class="min-w-full bg-white border border-gray-200 rounded shadow text-sm">
                 <thead class="bg-gray-100">
                     <tr>
-                        <th class="py-2 px-4 border-b">Nama Siswa</th>
-                        <th class="py-2 px-4 border-b">NIS</th>
-                        <th class="py-2 px-4 border-b">Kelas</th>
+                        <th class="py-2 px-4 border-b border-r">Nama Siswa</th>
+                        <th class="py-2 px-4 border-b border-r">NIS</th>
+                        <th class="py-2 px-4 border-b border-r">Kelas</th>
                         <th class="py-2 px-4 border-b">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($siswas as $siswa)
                         <tr class="hover:bg-blue-50">
-                            <td class="py-2 px-4 border-b">{{ $siswa->nama }}</td>
-                            <td class="py-2 px-4 border-b">{{ $siswa->nis }}</td>
-                            <td class="py-2 px-4 border-b">{{ $siswa->kelas }}</td>
-                            <td class="py-2 px-4 border-b">
+                            <td class="text-center py-2 px-4 border-b border-r">{{ $siswa->nama }}</td>
+                            <td class="text-center py-2 px-4 border-b border-r">{{ $siswa->nis }}</td>
+                            <td class="text-center py-2 px-4 border-b border-r">{{ $siswa->kelas }}</td>
+                            <td class="text-center py-2 px-4 border-b">
                                 <a href="{{ route('penilaian.edit', $siswa) }}"
                                     class="inline-block px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs">Input
                                     Nilai</a>
