@@ -27,8 +27,8 @@ class KriteriaController extends Controller
         return redirect()->route('kriteria.index')->with('success', 'Kriteria berhasil ditambahkan');
     }
 
-    public function edit(Kriteria $kriteria) {
-        return view('kriteria.edit', compact('kriteria'));
+    public function editModal(Kriteria $kriteria) {
+        return view('kriteria.modal-edit', compact('kriteria'));
     }
 
     public function update(Request $request, Kriteria $kriteria) {

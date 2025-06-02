@@ -15,12 +15,14 @@ class PenilaianController extends Controller
         return view('penilaian.index', compact('siswas'));
     }
 
-    public function edit(Siswa $siswa)
+    // Method ini akan dipanggil via AJAX
+    public function editModal(Siswa $siswa)
     {
         $kriterias = Kriteria::all();
         $existing = $siswa->penilaians->pluck('nilai', 'kriteria_id')->toArray();
 
-        return view('penilaian.edit', compact('siswa', 'kriterias', 'existing'));
+        // Mengembalikan view sebagai string HTML
+        return view('penilaian.edit', compact('siswa', 'kriterias', 'existing'))->render();
     }
 
     public function update(Request $request, Siswa $siswa)
@@ -39,4 +41,3 @@ class PenilaianController extends Controller
         return redirect()->route('penilaian.index')->with('success', 'Penilaian berhasil disimpan.');
     }
 }
-

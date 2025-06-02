@@ -39,7 +39,7 @@ class AuthController extends Controller
 
         if (!Auth::attempt($request->only('username', 'password'))) {
             // Mengarahkan kembali dengan pesan error
-            return redirect()->back()->with('error', 'Email atau password salah.');
+            return redirect()->route('login')->with('error', 'Email atau password salah.');
         }
 
         // Redirect ke dashboard tanpa token

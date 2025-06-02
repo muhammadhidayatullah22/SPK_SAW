@@ -28,7 +28,7 @@ class SiswaController extends Controller
     }
 
     public function edit(Siswa $siswa) {
-        return view('siswa.edit', compact('siswa'));
+        return view('siswa.modal-edit', compact('siswa'));
     }
 
     public function update(Request $request, Siswa $siswa) {
